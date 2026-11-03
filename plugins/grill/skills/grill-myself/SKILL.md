@@ -1,6 +1,11 @@
 ---
 name: grill-myself
-description: "Make Claude relentlessly question and improve its OWN output through an independent critic subagent, scored against a task-specific benchmark, for at most 5 rounds. Use ONLY when the user explicitly asks for it: 'grill yourself', '/grill-myself', 'self-critique this until it passes', 'stress-test your answer', 'iterate until it meets the bar', or asks for a critic-scored improvement loop on a deliverable (UI design, flow, script, formula, plan, doc). Do NOT use for ordinary 'fix/improve/optimize this' requests, quick answers, or when the user wants to be questioned themselves (that is grill-me)."
+description: "Make the agent relentlessly question and improve its OWN output through an independent critic, scored against a task-specific benchmark, for at most 5 rounds. Use ONLY when the user explicitly asks for it: 'grill yourself', '/grill-myself', 'self-critique this until it passes', 'stress-test your answer', 'iterate until it meets the bar', or asks for a critic-scored improvement loop on a deliverable (UI design, flow, script, formula, plan, doc). Do NOT use for ordinary 'fix/improve/optimize this' requests, quick answers, or when the user wants to be questioned themselves (that is grill-me)."
+license: MIT
+compatibility: Works in any Agent Skills client (Claude, Codex, GitHub Copilot, Cursor, Gemini CLI and others). An independent critic needs a subagent tool or a second chat session; without one it falls back to a labelled self-critique.
+metadata:
+  author: Nills Parmentier
+  version: "1.1.0"
 ---
 
 # Grill Myself
@@ -12,7 +17,7 @@ Three rules. Break one and the loop becomes theatre:
 
 1. **The bar is set before judging.** Write the benchmark before you draft, or before you
    study an existing artifact, so you can't fit the bar to the work.
-2. **The critic is not you.** A fresh subagent sees only the template inputs. Never your reasoning.
+2. **The critic is not you.** A fresh critic context (subagent or new chat) sees only the template inputs. Never your reasoning.
 3. **The loop has an exit, computed from numbers.** PASS, PLATEAU or CAP. Never "feels done".
 
 ## When not to use / scale down
@@ -21,7 +26,7 @@ Three rules. Break one and the loop becomes theatre:
   more than it finds, and offer light mode. Run light mode if the user confirms or already said 'grill yourself'.
 - **Light mode** (small deliverable, or user says "quick"): 5 criteria, max 2 rounds.
 - **Full mode** (default): 5–8 criteria, max 5 rounds.
-- Cost per round ≈ draft + benchmark + template, sent to a fresh subagent. Tell the user
+- Cost per round ≈ draft + benchmark + template, sent to a fresh critic context. Tell the user
   the mode, max rounds and max critic runs (rounds + 1 final scoring run at CAP) in one line before starting.
 
 ---
@@ -68,18 +73,27 @@ that was scored.
 
 ### 3a. Critic scores the current draft
 
-Spawn a fresh `general-purpose` subagent with the template below.
+Run the critic in a **fresh, isolated context** with the template below. Use the first
+option your host supports:
+1. **Subagent tool** (subagent, sub-agent, task or agent tool; in Claude Code a
+   `general-purpose` agent). This is the default.
+2. **Separate CLI run:** if you can run shell commands, a new non-interactive run of your own
+   CLI in its read-only/sandbox mode, with the template as the prompt. Ask the user once before the first one.
+3. **No isolation available:** tell the user the critic can't be independent and offer:
+   - **Manual critic:** you print the filled-in template, the user pastes it into a NEW chat
+     (any AI tool) and pastes the reply back. Independent, but one copy-paste per round.
+   - **Self-critique:** you run the template as a separate step using only its inputs and
+     mark the verdict `SELF-CRITIQUE (not independent)`.
+
+For every option:
 - **Paste the draft inline.** Use a file path only if the draft is very large AND the
-  subagent shares your filesystem.
+  critic shares your filesystem (never for the manual critic).
 - **Never add** your reasoning, earlier drafts, or your opinion.
 - **Testing:** if the deliverable can be tested (render + screenshot, run code, run tests),
   tell the critic to test, not just read. **Side-effect rule:** the critic may only execute in a
   sandbox, read-only, or dry-run mode. Never against a production tenant, never with real
   credentials, never anything that sends mail, writes data, or deletes. If it can't be tested
   safely, the critic reviews statically and says so.
-- **No subagent tool available?** Tell the user the critic can't be independent, run the
-  template as a separate step using only its inputs, and mark the verdict
-  `SELF-CRITIQUE (not independent)`.
 
 ```
 You are a senior reviewer. Your reputation suffers if you approve something a domain

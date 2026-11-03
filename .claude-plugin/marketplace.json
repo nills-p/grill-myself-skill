@@ -8,7 +8,7 @@
     {
       "name": "grill",
       "source": "./plugins/grill",
-      "description": "Grill Myself: Claude has its own output attacked by an independent critic until it meets a benchmark defined up front (max 5 rounds)."
+      "description": "Grill Myself: the agent has its own output attacked by an independent critic until it meets a benchmark defined up front (max 5 rounds)."
     }
   ]
 }

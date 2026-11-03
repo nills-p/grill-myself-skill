@@ -1,7 +1,7 @@
 sequenceDiagram
     actor U as User
-    participant A as Claude (author)
-    participant C as Critic (fresh subagent)
+    participant A as Agent (author)
+    participant C as Critic (fresh context)
 
     U->>A: Task + grill yourself
     A->>A: Write frame + benchmark, BEFORE the draft
