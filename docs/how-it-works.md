@@ -39,7 +39,7 @@ After round 1 the critic may propose at most 2 missing criteria. Then the benchm
 
 ### 3a. The critic
 
-A **new** subagent each round receives only: the frame, the benchmark, the current draft, and the list of previously raised issues with their status. It must:
+A **new**, isolated critic each round (a subagent, a separate CLI run, or a second chat the user pastes into) receives only: the frame, the benchmark, the current draft, and the list of previously raised issues with their status. It must:
 
 1. Score every criterion (0/1/2) with **verbatim evidence**.
 2. Report at most 3 issues, ranked by impact, each with a concrete fix.
@@ -65,7 +65,7 @@ At least one critic round always runs.
 | **Accept** | The issue is valid: it gets fixed |
 | **Reject** | With a concrete reason: conflicts with a hard constraint, the critic misread the context, or the fix breaks a Gate |
 | **Defer** | Valid but out of scope: goes into residual risks |
-| **Disputed** | A previously rejected issue comes back with new evidence. Claude may **not** reject it again: accept it, or list it as *disputed* for the user to decide |
+| **Disputed** | A previously rejected issue comes back with new evidence. The agent may **not** reject it again: accept it, or list it as *disputed* for the user to decide |
 
 The reason for a reject goes into the grill log only, **never** into the next critic prompt.
 
@@ -75,7 +75,7 @@ The reason for a reject goes into the grill log only, **never** into the next cr
 2. Apply the accepted fixes.
 3. **Oscillation check:** if a fix would undo an earlier fix, it is not applied and gets logged.
 
-For an existing user file, Claude works on a copy (`<name>.work.<ext>`) and only writes back in phase 4.
+For an existing user file, the agent works on a copy (`<name>.work.<ext>`) and only writes back in phase 4.
 
 ## Phase 4: delivery
 

@@ -10,7 +10,7 @@ graph TD
     P2["Phase 2 - DRAFT v1 (or existing file = v1)"] --> C
 
     subgraph LOOP ["Phase 3 - Grill loop, per round"]
-        C["3a Fresh critic subagent scores every criterion 0/1/2 with evidence"] --> V["Validate evidence: no valid quote or test output = 0"]
+        C["3a Fresh critic scores every criterion 0/1/2 with evidence"] --> V["Validate evidence: no valid quote or test output = 0"]
         V --> X{"3b Exit?"}
         X -->|not yet| T["3c Triage: Accept / Reject / Defer / Disputed"]
         T --> R["3d Snapshot vN, apply fixes"]
