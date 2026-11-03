@@ -129,7 +129,7 @@ The skill is one folder (`grill-myself/` with `SKILL.md` inside). Installing it 
 | [**A. Any Agent Skills tool**](#a-any-agent-skills-tool-codex-copilot-cursor-gemini-cli-claude-code) | Codex, GitHub Copilot, Cursor, Gemini CLI, Claude Code | Run the install script again, or `git pull` for project installs |
 | [**B. Claude Code plugin marketplace**](#b-claude-code-via-the-plugin-marketplace) | Claude Code teams | Centrally, via version number |
 | [**C. ZIP upload in claude.ai**](#c-claudeai-claude-desktop-and-cowork-zip-upload) | claude.ai, Desktop chat, Cowork | Re-upload, or org sharing |
-| [**D. Tools without skill support**](#d-tools-without-skill-support) | Other coding agents, M365 Copilot Chat, custom GPTs, Gems | Re-attach `SKILL.md` |
+| [**D. Tools without skill support**](#d-tools-without-skill-support) | Other coding agents, Microsoft 365 Copilot Chat, custom GPTs, Gems | Re-attach `SKILL.md` |
 
 > **In every command below**, replace `<org>`, `<project>` and `<repo>` with the real values of this repository.
 
@@ -187,7 +187,7 @@ Start a **new** session in your tool so it picks up the skill.
 
 ### B. Claude Code via the plugin marketplace
 
-This repository is also a Claude Code **plugin marketplace** (`m365-team-skills`) containing one plugin (`grill`) that holds the skill. Everyone gets the same version, and you roll out updates by bumping a version number.
+This repository is also a Claude Code **plugin marketplace** (`nills-p-skills`) containing one plugin (`grill`) that holds the skill. Everyone gets the same version, and you roll out updates by bumping a version number.
 
 **Step 1: add the marketplace.** In a Claude Code session, run the command for your host:
 
@@ -206,7 +206,7 @@ Azure DevOps (use the full HTTPS clone URL; the `owner/repo` shorthand only work
 **Step 2: install the plugin.**
 
 ```text
-/plugin install grill@m365-team-skills
+/plugin install grill@nills-p-skills
 ```
 
 **Step 3: verify.** Start a new session (or run `/reload-plugins`) and type `/grill`. You should see `/grill:grill-myself` in the list.
@@ -218,7 +218,7 @@ claude plugin marketplace add https://dev.azure.com/<org>/<project>/_git/<repo>
 ```
 
 ```bash
-claude plugin install grill@m365-team-skills
+claude plugin install grill@nills-p-skills
 ```
 
 #### Private repository? How authentication works
@@ -382,7 +382,7 @@ PASS in 3 rounds (12/14)
 **Pulling an update as a user:**
 
 - **Route A:** run the install script again (personal), or `git pull` in the project that holds `.agents/skills/` (project).
-- **Route B:** `/plugin marketplace update m365-team-skills`, or enable automatic updates: `/plugin` > **Marketplaces** > `m365-team-skills` > **Enable auto-update**.
+- **Route B:** `/plugin marketplace update nills-p-skills`, or enable automatic updates: `/plugin` > **Marketplaces** > `nills-p-skills` > **Enable auto-update**.
 - **Route C:** re-upload the new ZIP, unless you received the skill via **Share**: then the update arrives automatically.
 - **Route D:** re-attach or re-upload the new `SKILL.md`.
 
@@ -398,7 +398,7 @@ PASS in 3 rounds (12/14)
 | Skill doesn't appear in Claude Code | Installed only to `.agents/skills/` | Install with `--target claude` (or the default `all`), or use route B |
 | `marketplace add` fails on Azure DevOps with an auth error | Git wants to prompt for sign-in, but Claude Code disallows prompts | Clone the repository once manually so Git Credential Manager stores your sign-in |
 | `owner/repo` can't find the Azure DevOps repository | The shorthand always means github.com | Use the full `https://dev.azure.com/...` URL |
-| `Plugin "grill-myself" not found in marketplace` | You installed the skill name instead of the plugin name | `/plugin install grill@m365-team-skills` |
+| `Plugin "grill-myself" not found in marketplace` | You installed the skill name instead of the plugin name | `/plugin install grill@nills-p-skills` |
 | Update doesn't arrive in Claude Code | `version` was not bumped | Bump the version in `plugin.json`, then `/plugin marketplace update` |
 | ZIP upload in claude.ai fails | ZIP contains only `SKILL.md`, or folder name ≠ `name` in the frontmatter | Use `New-SkillPackage.ps1` or the `zip` command above |
 | Skill doesn't start on its own | By design: it only triggers on explicit requests | Say "grill yourself" or use the explicit call for your tool |
@@ -412,7 +412,7 @@ PASS in 3 rounds (12/14)
 ```text
 .
 ├── .claude-plugin/
-│   └── marketplace.json          # Claude Code marketplace "m365-team-skills" (route B)
+│   └── marketplace.json          # Claude Code marketplace "nills-p-skills" (route B)
 ├── plugins/
 │   └── grill/
 │       ├── .claude-plugin/

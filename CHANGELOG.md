@@ -16,6 +16,7 @@ Versions follow [SemVer](https://semver.org/). Always bump `version` in
 - "Manual critic" option: an independent critic in any chat tool by pasting into a second chat.
 
 ### Changed
+- Claude Code marketplace is now `nills-p-skills`, owner "Nills Parmentier".
 - `SKILL.md` wording is tool-neutral ("the agent" instead of "Claude"); critic step lists
   subagent, separate CLI run, manual critic and self-critique in order of preference.
 - `SKILL.md` frontmatter gains `license`, `compatibility` and `metadata` (Agent Skills spec fields).
@@ -25,6 +26,6 @@ Versions follow [SemVer](https://semver.org/). Always bump `version` in
 
 ### Added
 - `grill-myself` skill: critic-scored improvement loop (Frame, Benchmark, Draft, Grill loop, Deliver).
-- Plugin marketplace `m365-team-skills` with plugin `grill`.
+- Plugin marketplace `nills-p-skills` with plugin `grill`.
 - Install scripts: `Install-Skill.ps1` (manual install) and `New-SkillPackage.ps1` (ZIP for claude.ai).
 - Documentation with Mermaid diagrams and SVG fallback.
