@@ -1,8 +1,8 @@
 {
-  "name": "m365-team-skills",
-  "description": "Shared Claude skills for the M365 / Power Platform team",
+  "name": "nills-p-skills",
+  "description": "Agent skills by Nills Parmentier",
   "owner": {
-    "name": "M365 Engineering Team"
+    "name": "Nills Parmentier"
   },
   "plugins": [
     {
