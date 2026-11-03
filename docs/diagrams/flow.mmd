@@ -1,0 +1,32 @@
+graph TD
+    START(["User: grill yourself"]) --> SIZE{"Small deliverable or 'quick'?"}
+    SIZE -->|yes| LIGHT["Light mode: 5 criteria, max 2 rounds"]
+    SIZE -->|no| FULL["Full mode: 5-8 criteria, max 5 rounds"]
+    LIGHT --> P0
+    FULL --> P0
+
+    P0["Phase 0 - FRAME: deliverable, audience, hard constraints"] --> P1
+    P1["Phase 1 - BENCHMARK: observable criteria, 2-3 Gates, threshold = 80 percent"] --> P2
+    P2["Phase 2 - DRAFT v1 (or existing file = v1)"] --> C
+
+    subgraph LOOP ["Phase 3 - Grill loop, per round"]
+        C["3a Fresh critic subagent scores every criterion 0/1/2 with evidence"] --> V["Validate evidence: no valid quote or test output = 0"]
+        V --> X{"3b Exit?"}
+        X -->|not yet| T["3c Triage: Accept / Reject / Defer / Disputed"]
+        T --> R["3d Snapshot vN, apply fixes"]
+        R --> C
+    end
+
+    X -->|"PASS: all Gates = 2 and score at or above threshold"| D
+    X -->|"PLATEAU: round 3+, no progress"| D
+    X -->|"CAP: last round"| F["Final fixes + 1 scoring-only run"]
+    F --> D
+    D(["Phase 4 - DELIVER: verdict, grill log, residual risks, deliverable"])
+
+    classDef phase fill:#E8F1FB,stroke:#2B6CB0,color:#1A365D
+    classDef loop fill:#FFF5E6,stroke:#C05621,color:#652B19
+    classDef exit fill:#E6F6EC,stroke:#2F855A,color:#1C4532
+    class P0,P1,P2 phase
+    class C,V,T,R loop
+    class D,F exit
+    style LOOP fill:#FFFBF5,stroke:#C05621,color:#652B19

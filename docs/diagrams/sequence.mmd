@@ -1,0 +1,16 @@
+sequenceDiagram
+    actor U as User
+    participant A as Claude (author)
+    participant C as Critic (fresh subagent)
+
+    U->>A: Task + grill yourself
+    A->>A: Write frame + benchmark, BEFORE the draft
+    A->>A: Produce draft v1
+    loop Every round (max 5, light mode max 2)
+        A->>C: Task frame + benchmark + draft + previously raised issues
+        Note over A,C: Critic does NOT get: reasoning, earlier drafts, author's opinion
+        C-->>A: Score per criterion with evidence, max 3 issues, expert verdict
+        A->>A: Exit check: PASS, PLATEAU or CAP
+        A->>A: Triage, snapshot, apply fixes
+    end
+    A-->>U: Verdict + grill log + residual risks + deliverable

@@ -1,0 +1,9 @@
+{
+  "name": "grill",
+  "description": "Critic-scored self-improvement loop for Claude deliverables (UI, Power Fx, flows, PnP scripts, plans, docs).",
+  "version": "1.0.0",
+  "author": {
+    "name": "M365 Engineering Team"
+  },
+  "keywords": ["quality", "review", "critic", "power-platform", "self-critique"]
+}

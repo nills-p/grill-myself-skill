@@ -1,0 +1,14 @@
+{
+  "name": "m365-team-skills",
+  "description": "Shared Claude skills for the M365 / Power Platform team",
+  "owner": {
+    "name": "M365 Engineering Team"
+  },
+  "plugins": [
+    {
+      "name": "grill",
+      "source": "./plugins/grill",
+      "description": "Grill Myself: Claude has its own output attacked by an independent critic until it meets a benchmark defined up front (max 5 rounds)."
+    }
+  ]
+}
